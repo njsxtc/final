@@ -9,6 +9,17 @@
 
 using namespace xll;
 
+AddIn xai_document(
+	Document(L"final")
+	.Documentation(L"Documenatation for the GR6250 final exam add-in.")
+);
+
+
+AddIn xai_category(
+	Document(L"XLL")
+	.Documentation(L"Documenatation for the XLL category.")
+);
+
 static AddIn xai_normal_pdf(
     Function(XLL_DOUBLE, L"?xll_normal_pdf", L"XLL.NORMAL.PDF")
     .Arg(XLL_DOUBLE, L"x", L"is the value at which to compute the pdf.")

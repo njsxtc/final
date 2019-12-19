@@ -6,11 +6,11 @@ using namespace fms;
 using namespace xll;
 
 test test_gamma([] {
-	/*
+	
 	ensure(::gamma(1) == 1);
 	ensure(::gamma(2) == 1);
 	ensure(::gamma(3) == 2);
-	*/
+	
 	double a = 2, b = 3;
 	double x, y;
 	x = 1;
@@ -18,3 +18,5 @@ test test_gamma([] {
 	y = gamma::cdf(x, a, b);
 
 });
+
+//!!! Implement XLL.GAMMA.PUT

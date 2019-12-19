@@ -35,7 +35,12 @@ static AddIn xai_black_put(
 	.Arg(XLL_DOUBLE, L"k", L"is the strike.", L"100")
 	.Arg(XLL_DOUBLE, L"t", L"is the time in years to expiration.", L"0.25")
 	.Category(L"XLL")
-	.FunctionHelp(L"Return Black put value.")
+	.FunctionHelp(L"Return the Black put value.")
+	.Documentation(
+		L"The value of a Black put option is E[max{k - F, 0}]. "
+		L"The expected value is k P(F " le_ " k) - f P_(F " le_ " k), "
+		L"where dP_/dP = exp(sigma B_t - sigma^2 t/2). "
+	)
 );
 double WINAPI xll_black_put(double f, double sigma, double k, double t)
 {
