@@ -1,0 +1,6 @@
+[submodule "xll12"]
+	path = xll12
+	url = https://github.com/keithalewis/xll12.git
+[submodule "cephes"]
+	path = cephes
+	url = https://github.com/keithalewis/cephes.git
