@@ -141,12 +141,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="fms_gamma.h" />
     <ClInclude Include="fms_normal.h" />
     <ClInclude Include="fms_black.h" />
     <ClInclude Include="xll_black.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xll_black.cpp" />
+    <ClCompile Include="xll_gamma.cpp" />
     <ClCompile Include="xll_normal.cpp" />
   </ItemGroup>
   <ItemGroup>
