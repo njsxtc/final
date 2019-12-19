@@ -1,18 +1,28 @@
-# Homework 5
+# Final Exam
 
-1. Create a spreadsheet called `normal_inv.xlsx` to find out when `NORMAL.INV` starts failing.  
+In this final exam you will compare the Black model lognormal payoff to a Gamma payoff.
+The deliverable is an add-in, documentation of the functions you write, and a spreadsheet demonstrating the implied volatilty curve.
 
-Duplicate the function `fms::normal::inv` in the file `fms_normal.h`:
+The Gamma distribution has density function f(x) = x^(a - 1) exp(-b x) b^a/Gamma(a), x > 0,
+where Gamma(a) = int_0^infty x^(a - 1) exp(-x) dx.
+It has mean a/b and variance a/b^2.
 
-- Choose a cell for input `x`. Start with `x` equal to 0.
-- Choose a cell for for the output, `p`, of function `NORMSDIST(x)`
-- Using `p` as input, duplicate the code for the initial guess on line 40 of `fms_normal.h`. Call this `x0`.
-- In the cell to the right of the initial guess enter the formula for `XLL.NORMAL.CDF(x0) - p`
-- In the cell to the right of this enter the formula for `XLL.NORMAL.PDF(x0)`
-- Below the cell for `x0` enter the formula for the Newton-Raphson next guess. Call this `x1`.
-- Copy and paste the cells for the cdf and pdf directly below in the same row as `x1`.
-- Copy and paste the row of three cells you just enter as needed until you see convergence.
+The Black distribution is f exp(s Z - s^2/2), where Z is standard normal and s = sigma sqrt(t).  
+It has mean f and variance f^2 (exp(s^2) - 1).
 
-Find the value for `x` > 0 such that the root finding algorithm converges but `x + 0.1` does not converge. Submit your spreadsheet with that value.
+Solving f = a/b and f^2(exp(s^2) - 1) = a/b^2 gives
+a = 1/(exp(s^2) - 1) and b = (exp(s^2) - 1)/f.
 
-2. Search for !!! in the project and follow the directions.
+You will find the implied volatility curve of the Gamma distribution with a and b parameterized by f and s.
+
+Fork ... to your github repository.
+Clone a local copy.
+Make sure the build is working.
+Implement the value of a put option.
+
+Use existing code to compute the Black implied volatility.
+
+Generate documentation using Sandcastle Help File Builder.
+Commit your work.
+Issue a pull request.
+
