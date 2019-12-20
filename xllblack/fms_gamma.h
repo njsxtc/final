@@ -66,8 +66,6 @@ namespace fms::gamma {
 		f = f;
 		k = k;*/
 
-		double te = cdf(2, a, b);
-		te = te;
 		
 		put_value = k * fms::gamma::cdf(k / f, a, b) - f* fms::gamma::cdf(k/f,a+1,b);
 		//!!! calculate put value
