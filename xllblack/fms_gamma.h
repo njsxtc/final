@@ -2,7 +2,7 @@
 #pragma once
 #include <cmath>
 #include <tuple>
-#include<cassert>
+#include "../xll12/xll/ensure.h"
 //
 // Cephes library declarations
 //
@@ -21,11 +21,13 @@ namespace fms::gamma {
 	//b=1/beta
 	inline double pdf(double x, double a, double b)
 	{
+		if (x <= 0) return 0;
 		return pow(x, a - 1) * exp(-b * x) * pow(b, a) / ::gamma(a);
 	}
 
 	inline double cdf(double x, double a, double b)
 	{
+		if (x <= 0) return 0;
 		return ::igam(a, b * x); // ::gamma(a);		
 	}
 
@@ -41,8 +43,9 @@ namespace fms::gamma {
 	inline std::pair<double, double> convert(double s)
 	{
 		//!!! return (a, b) above
-		std::pair<double,double> t_ (1.0/(std::exp(s * s) - 1), 1.0 / (std::exp(s * s) - 1));
-		return t_;
+		ensure(s != 0);
+		return std::pair<double,double> (1.0/(std::exp(s * s) - 1), 1.0 / (std::exp(s * s) - 1));
+		
 		//return std::pair(s, s);
 	}
 
@@ -50,6 +53,11 @@ namespace fms::gamma {
 	// E[F 1(G <= k/f)] = f int_0^k x g(x) dx = f gamma::cdf(k/f, a + 1, b)
 	inline double put(double f, double sigma, double k, double t)
 	{
+		
+		ensure(f > 0);
+		ensure(sigma > 0);
+		ensure(k > 0);
+		ensure(t > 0);
 		double s = sigma * sqrt(t);
 		double put_value;
 		auto [a, b] = convert(s);
