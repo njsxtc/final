@@ -17,7 +17,7 @@ test test_gamma([] {
 	y = gamma::pdf(x, A, B);
 	ensure(y == 1.0 / 9 * std::exp(-1.0 / 3));
 	y = gamma::cdf(x, A, B);
-	ensure(y == 1.0 - 3.0 * std::exp(-1.0 / 3) * (1.0 / 9 + 1.0 / 3));
+	ensure(fabs(y - 1.0 + 3.0 * std::exp(-1.0 / 3) * (1.0 / 9 + 1.0 / 3)) < 0.00001);
 	
 	
 });
