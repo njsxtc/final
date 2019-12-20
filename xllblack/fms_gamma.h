@@ -28,7 +28,7 @@ namespace fms::gamma {
 	inline double cdf(double x, double a, double b)
 	{
 		if (x <= 0) return 0;
-		return ::igam(a, b * x); // ::gamma(a);		
+		return ::igam(a, b * x); 	
 	}
 
 	// The Gamma distribution has density function g(x) = x ^ (a - 1) exp(-b x) b ^ a / Gamma(a), x > 0,
