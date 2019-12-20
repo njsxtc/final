@@ -46,7 +46,7 @@ namespace fms::gamma {
 		
 		return std::pair<double,double> (1/(std::exp(s * s) - 1), 1 / (std::exp(s * s) - 1));
 		
-		//return std::pair(s, s);
+		
 	}
 
 	// Put value is E[(k - F)^+] = k P(F <= k) - E[F 1(F <= k)]
