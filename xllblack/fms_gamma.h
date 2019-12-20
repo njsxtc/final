@@ -34,13 +34,15 @@ namespace fms::gamma {
 	// The Black distribution is F = f exp(s Z - s^2/2), where Z is standard normal and s = sigma sqrt(t).  
 	// It has mean f and variance f^2 (exp(s^2) - 1).
 	//
-	// We Gamma distribution has F = f G, where G has mean 0 and variance exp(s^2) - 1
+	// We Gamma distribution has F = f G, where G has mean 1 and variance exp(s^2) - 1
 	// Solving 1 = a/b and (exp(s^2) - 1) = a/b^2 gives
 	// a = b and b = 1/(exp(s^2) - 1).
 	inline std::pair<double, double> convert(double s)
 	{
 		//!!! return (a, b) above
-		return std::pair(s, s);
+		std::pair<double,double> t_ (1.0 / std::exp(s * s) - 1, 1.0 / std::exp(s * s) - 1);
+		return t_;
+		//return std::pair(s, s);
 	}
 
 	// Put value is E[(k - F)^+] = k P(F <= k) - E[F 1(F <= k)]
@@ -50,10 +52,13 @@ namespace fms::gamma {
 		double s = sigma * sqrt(t);
 
 		//!!! delete this comment and the next three lines
-		s = s;
+		/*s = s;
 		f = f;
-		k = k;
+		k = k;*/
+		double put_value;
+		auto [a, b] = convert(s);
+		put_value = k * fms::gamma::cdf(k / f, a, b) - f* fms::gamma::cdf(k/f,a+1,b);
 		//!!! calculate put value
-		return 0;
+		return put_value;
 	}
 }
