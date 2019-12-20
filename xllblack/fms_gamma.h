@@ -2,7 +2,7 @@
 #pragma once
 #include <cmath>
 #include <tuple>
-
+#include<cassert>
 //
 // Cephes library declarations
 //
@@ -18,6 +18,7 @@ extern "C" double igam(double a, double x);
 namespace fms::gamma {
 
 	// Gamma distribution: g(x) = x^{a-1} exp(-b x) b^a/Gamma(a), x > 0
+	//b=1/beta
 	inline double pdf(double x, double a, double b)
 	{
 		return pow(x, a - 1) * exp(-b * x) * pow(b, a) / ::gamma(a);
@@ -25,7 +26,7 @@ namespace fms::gamma {
 
 	inline double cdf(double x, double a, double b)
 	{
-		return ::igam(a, b * x) / ::gamma(a);
+		return ::igam(a, b * x); // ::gamma(a);		
 	}
 
 	// The Gamma distribution has density function g(x) = x ^ (a - 1) exp(-b x) b ^ a / Gamma(a), x > 0,
@@ -40,7 +41,7 @@ namespace fms::gamma {
 	inline std::pair<double, double> convert(double s)
 	{
 		//!!! return (a, b) above
-		std::pair<double,double> t_ (1.0 / std::exp(s * s) - 1, 1.0 / std::exp(s * s) - 1);
+		std::pair<double,double> t_ (1.0/(std::exp(s * s) - 1), 1.0 / (std::exp(s * s) - 1));
 		return t_;
 		//return std::pair(s, s);
 	}
@@ -50,13 +51,16 @@ namespace fms::gamma {
 	inline double put(double f, double sigma, double k, double t)
 	{
 		double s = sigma * sqrt(t);
-
+		double put_value;
+		auto [a, b] = convert(s);
 		//!!! delete this comment and the next three lines
 		/*s = s;
 		f = f;
 		k = k;*/
-		double put_value;
-		auto [a, b] = convert(s);
+
+		double te = cdf(2, a, b);
+		te = te;
+		
 		put_value = k * fms::gamma::cdf(k / f, a, b) - f* fms::gamma::cdf(k/f,a+1,b);
 		//!!! calculate put value
 		return put_value;
