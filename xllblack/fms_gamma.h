@@ -44,8 +44,11 @@ namespace fms::gamma {
 	{
 		//!!! return (a, b) above
 		
-		return std::pair<double,double> (1/(std::exp(s * s) - 1), 1 / (std::exp(s * s) - 1));
-		
+
+		double a = 1 / (exp(s * s) - 1);
+		return std::pair(a, a);//
+
+
 		
 	}
 
@@ -54,16 +57,17 @@ namespace fms::gamma {
 	inline double put(double f, double sigma, double k, double t)
 	{
 		
-		ensure(f > 0);
-		ensure(sigma > 0);
-		ensure(k > 0);
-		ensure(t > 0);
+		double a;
+		double b;//
 		double s = sigma * sqrt(t);
-		double put_value;
-		auto [a, b] = convert(s);
-		put_value = k * fms::gamma::cdf(k / f, a, b) - f* fms::gamma::cdf(k/f,a+1,b);
-		
+		std::pair<double, double> ab = convert(s);
+		a = ab.first;
+		b = ab.second;
+		double put;
+		//
+		put = k * gamma::cdf(k / f, a, b) - f * gamma::cdf(k / f, a + 1, b);
+		//!!! calculate put value
+		return put;
 
-		return put_value;
 	}
 }

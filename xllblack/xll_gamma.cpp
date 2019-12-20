@@ -21,21 +21,22 @@ test test_gamma([] {
 	
 	
 });
+
+
 //!!! Implement XLL.GAMMA.PUT
-
-
-static AddIn xai_gamma_put(
+static AddIn xai_black_put(
 	Function(XLL_DOUBLE, L"?xll_gamma_put", L"XLL.GAMMA.PUT")
 	.Arg(XLL_DOUBLE, L"f", L"is the forward.", L"100")
 	.Arg(XLL_DOUBLE, L"sigma", L"is the volatility.", L"0.2")
 	.Arg(XLL_DOUBLE, L"k", L"is the strike.", L"100")
 	.Arg(XLL_DOUBLE, L"t", L"is the time in years to expiration.", L"0.25")
 	.Category(L"XLL")
-	.FunctionHelp(L"Return the Gamma put value.")
+	.FunctionHelp(L"Return the GAMMA put value.")
 	.Documentation(
-		L"The value of a Gamma put option is E[max{k - F, 0}]. "
-		L"The expected value is k P(F " le_ " k) - E[F 1(F " le_ " k)], "
-		L"where F=f G and G is a Gamma distribution random variable, making the variance and mean of the F same as the lognormal situation."
+		L"This function helps to calculate the put option price using GAMMA distribution,"
+		L"Put value is E[(k - F)^+],which equals k*P(F 'less or equal to'  k) - E[F*1(F 'less or equal to' k)], "
+		L"where E[F 1(G'less or equal to'k/f)], which equals f int_0^k x g(x) dx, and which equals to f gamma::cdf(k/f, a + 1, b), "
+		L"where a,b equal to 1/(exp(s^2) - 1); "
 	)
 );
 double WINAPI xll_gamma_put(double f, double sigma, double k, double t)
